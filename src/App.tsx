@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import useCounter from 'shared/dist/hooks/useCounter'
+import theme from 'shared/dist/theme/baseTheme'
+import { ThemeProvider } from 'styled-components'
+import { AppWrapper, CountWrapper, CustomButton, TextExplainer, TextExplainerWrapper } from './styles'
 
-function App() {
+const App: React.FC = () => {
+
+  const [count, setCount] = useCounter(0)
+
+  console.log(theme)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <AppWrapper>
+        <CountWrapper>{count}</CountWrapper>
+        <CustomButton onClick={() => setCount(count+1)}>
+          Press me
+        </CustomButton>
+        <TextExplainerWrapper>
+          <TextExplainer>Simple shared hook for a counter using styled components</TextExplainer>
+        </TextExplainerWrapper>
+      </AppWrapper>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
